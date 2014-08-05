@@ -1,0 +1,10 @@
+## Interface: 50400
+## Title: Guild Chart Alert
+## Notes: Plays a sound when receiving guild or officer messages
+## Version: 1.0
+## Author: fmeus
+## Dependencies:
+## OptionalDeps:
+## SavedVariables:
+
+GuildChatAlert.lua
