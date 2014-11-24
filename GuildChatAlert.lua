@@ -4,11 +4,15 @@ local f = CreateFrame( "Frame", "GuildChatAlert", UIParent );
 -- Gratz variants
 local messages = { "gratz","Gratz","gz","Gz" };
 
--- Current player (toon-realm)
-local currentPlayer = UnitName( "player" ).."-"..GetRealmName();
-local lastTrigger, delayTime, totalTime, sendMessage = 0, 10, 0, false;
+-- Tracking variables
+local lastTrigger, delayTime, totalTime, sendMessage = 0, 20, 0, false;
 
--- Sende gratz to guild chat after n seconds (determined by delayTime)
+-- Was event caused by the current player
+local function currentPlayerEvent( sender )
+	return ( ( sender == UnitName( "player" ) ) or ( sender == UnitName( "player" ).."-"..GetRealmName() ) );
+end;
+
+-- Send gratz to guild chat after n seconds (determined by delayTime)
 local function OnUpdate( self, elapsed )
 	totalTime = totalTime + elapsed;
 
@@ -24,7 +28,7 @@ end;
 function f:CHAT_MSG_GUILD( event, ... )
 	local _, sender = ...;
 
-	if ( sender ~= currentPlayer ) then
+	if ( not currentPlayerEvent( sender ) ) then
 		PlaySoundFile( "Interface\\AddOns\\GuildChatAlert\\Sounds\\snd-chat.mp3", "master" );
 	end;
 end;
@@ -33,7 +37,7 @@ end;
 function f:CHAT_MSG_OFFICER( event, ... )
 	local _, sender = ...;
 
-	if ( sender ~= currentPlayer ) then
+	if ( not currentPlayerEvent( sender ) ) then
 		PlaySoundFile( "Interface\\AddOns\\GuildChatAlert\\Sounds\\snd-officer.mp3", "master" );
 	end;
 end;
@@ -44,7 +48,7 @@ function f:CHAT_MSG_GUILD_ACHIEVEMENT( event, ... )
 	local interval = time() - lastTrigger;
 	local playerAFK = UnitIsAFK( "player" ) or 0;
 
-	if ( sender ~= currentPlayer ) then
+	if ( not currentPlayerEvent( sender ) ) then
 		if ( interval >= 60 and playerAFK == 0 ) then
 			totalTime = 0;
 			sendMessage = true;
