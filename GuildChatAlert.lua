@@ -2,7 +2,7 @@
 local f = CreateFrame( "Frame", "GuildChatAlert", UIParent );
 
 -- Gratz variants
-local messages = { "gratz","Gratz","gz","Gz" };
+local messages = { "gratz","gz","congratz" };
 
 -- Tracking variables
 local lastTrigger, delayTime, totalTime, sendMessage = 0, 20, 0, false;

@@ -1,7 +1,7 @@
-## Interface: 60000
+## Interface: 60200
 ## Title: Guild Chart Alert
 ## Notes: Plays a sound when receiving guild or officer messages
-## Version: 1.0
+## Version: 1.2
 ## Author: fmeus
 ## Dependencies:
 ## OptionalDeps:
